@@ -60,21 +60,17 @@ def count_networks() -> tuple[int, int]:
 
 def count_tests() -> int:
     sys.path.insert(0, str(REPO_ROOT))
-    try:
-        import test_validate
+    import test_validate
 
-        suite1 = unittest.defaultTestLoader.loadTestsFromModule(test_validate)
-        count1 = suite1.countTestCases()
-    except Exception:
-        count1 = 97
+    suite1 = unittest.defaultTestLoader.loadTestsFromModule(test_validate)
+    count1 = suite1.countTestCases()
 
-    try:
-        suite2 = unittest.defaultTestLoader.discover(str(REPO_ROOT / "tests"), pattern="test_*.py")
-        count2 = suite2.countTestCases()
-    except Exception:
-        count2 = 29
+    loader = unittest.TestLoader()
+    suite2 = loader.discover(str(REPO_ROOT / "tests"), pattern="test_*.py")
+    if loader.errors:
+        raise RuntimeError("test discovery failed:\n" + "\n".join(map(str, loader.errors)))
 
-    return count1 + count2
+    return count1 + suite2.countTestCases()
 
 
 def generate_metrics_table(
