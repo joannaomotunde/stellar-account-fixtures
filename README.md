@@ -85,7 +85,7 @@ seed-shaped string (`S...`) is refused by both the capture tool and the validato
 | Indicator | Value | Source |
 |---|---|---|
 | Verified Captures | **9 accounts** (8 Mainnet, 1 Test) | `fixtures/` |
-| Test Suite | **274 passing** | `python -m unittest` |
+| Test Suite | **276 passing** | `python -m unittest` |
 | Integrity Assurance | **SHA-256 sidecars verified** | `validate.py` |
 | Safety Invariant | **Zero secret keys (`S...`)** | Validator enforced |
 <!-- METRICS:END -->
@@ -145,14 +145,22 @@ Only `G...` account ids, only through the tool, and never by hand:
 
 ```
 python3 tools/capture.py --network public --account G... \
-  --id my-new-shape --scenario "one sentence on why this shape is missing"
+  --id my-new-shape --scenario "one sentence on why this shape is missing" --root .
 python3 validate.py
 ```
 
 The tool refuses a `G`-shaped address whose checksum does not verify, refuses an endpoint
 whose `network_passphrase` is not the one that network should have, refuses a response
 that describes a different account, and refuses to write anything containing a
-seed-shaped string. Existing fixtures are not overwritten without `--update`.
+seed-shaped string. `--root` selects the checkout to write into and defaults to the current
+directory. Existing fixtures are not overwritten without `--update`; add it only when
+intentionally replacing a capture:
+
+```
+python3 tools/capture.py --network public --account G... \
+  --id existing-shape --scenario "why this account is being re-captured" \
+  --root /path/to/checkout --update
+```
 `CONTRIBUTING.md` has the rules for a pull request.
 
 ## Coverage gaps, stated
