@@ -68,8 +68,9 @@ fixtures/whitespace-home-domain: blank_home_domain, has_inflation, master_is_sig
 validate: corpus agrees with itself
 ```
 
-That block is the output of the command above, run in this checkout on 2026-11-03. If a
-fixture changes, the block is stale and the command is not: regenerate rather than trust it.
+This block illustrates baseline shapes across the nine baseline specimens. Run
+`python3 validate.py --report` for the current report.
+
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
 [Shape Label Matrix](corpus/shape-matrix.md). Consolidated account digests, ledger heights, and
 Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md). Specific multi-signature
@@ -85,7 +86,7 @@ seed-shaped string (`S...`) is refused by both the capture tool and the validato
 | Indicator | Value | Source |
 |---|---|---|
 | Verified Captures | **9 accounts** (8 Mainnet, 1 Test) | `fixtures/` |
-| Test Suite | **274 passing** | `python -m unittest` |
+| Test Suite | **277 passing** | `python -m unittest` |
 | Integrity Assurance | **SHA-256 sidecars verified** | `validate.py` |
 | Safety Invariant | **Zero secret keys (`S...`)** | Validator enforced |
 <!-- METRICS:END -->
