@@ -1,6 +1,6 @@
 # ROADMAP: Stellar account fixtures
 
-Last updated: 2026-11-24 03:30 UTC
+Last updated: 2026-11-24 08:42 UTC
 
 A corpus of public Stellar account reads, their provenance, and the validator that keeps
 the provenance honest. Nothing here is a claim about whether an account is well
@@ -37,8 +37,8 @@ empty gap list is gate G2.
 | 0 | Ground truth | 5 | 6 | 83% |
 | 1 | Repository wrapper | 10 | 10 | 100% |
 | 2 | Coverage | 35 | 38 | 92% |
-| 3 | Consumer contract | 3 | 4 | 75% |
-| **All phases** | **Readiness total** | **53** | **58** | **91%** |
+| 3 | Consumer contract | 4 | 5 | 80% |
+| **All phases** | **Readiness total** | **54** | **59** | **92%** |
 | Gates | G1 to G5 | 2 | 5 | 40% |
 <!-- PROGRESS:END -->
 
@@ -171,6 +171,7 @@ python3 scripts/roadmap_progress.py --check ROADMAP.md
 - [x] **3.2** Gauge's rule tests read fixtures from here rather than carrying their own copies, which needs D-03 decided first. M. Deps: 3.1, D-03. Done when: a Gauge test names the fixture id it used. **Issue:** #18. (done 2026-11-20: D-03 recorded, `tools/manifest.py` provided for consumer content pinning, offline consumption contract documented; issue #18.)
 - [ ] **3.3** Airlock's Stellar-side detectors use at least one fixture from here. S. Deps: 3.1. Done when: G5 is ticked with the two repository names. **Issue:** #19.
 - [x] **3.4** This corpus reads one of its own captures back from the chain through the sibling action: `.posture/gauge.toml` declares the account behind `fixtures/testnet-multisig` as the capture describes it, and `.github/workflows/posture-watch.yml` runs that declaration on a schedule by `uses: posture-sec/stellar-posture-watch@<sha>`. S. Deps: none. Done when: the workflow has run on a runner from `main`, the tracking issue it maintains is named here with its label and the ledger it read, and the action's own roadmap can say a repository other than its own consumes it. **Issue:** #27. (done 2026-11-05 08:11: three dispatches of `posture-watch.yml` from `main` at `71dfffc`, whose logs are in section 7's row, opened issue #29 with the label `fixture-drift` at ledger 5568533 and left it alone on the run after that, and the action's own roadmap now names this repository as its second consumer.)
+- [x] **3.5** Generate the README uncovered-shape list from the `SCHEMA.md` Section 5 vocabulary and the union of fixture sidecar shapes. S. Deps: 0.4. Done when: `scripts/sync_readme.py` renders the marked list, `--check` detects drift, and `tests/test_readme_gap_list.py` verifies derivation and check-mode enforcement. **Issue:** #103. (done 2026-11-24: generated the README shape-gap block from schema labels and fixture sidecars, and added derivation and stale-check tests.)
 
 ## 6. Decision log
 
@@ -186,6 +187,7 @@ python3 scripts/roadmap_progress.py --check ROADMAP.md
 
 | When | What | Tasks |
 |---|---|---|
+| 2026-11-24 08:42 | Task 3.5 (closing #103): `scripts/sync_readme.py` derives the uncovered shape list from the schema vocabulary and on-disk sidecars; README coverage gaps are marked and generated, and CONTRIBUTING.md directs contributors to regenerate rather than edit the list by hand. Added tests for set difference, sorting, and stale check-mode detection. Verified locally: `python3 validate.py`, `python3 -m unittest discover -s tests -t tests` (181 tests), `python3 -m unittest test_validate` (97 tests), `ruff check .`, `ruff format --check .`, `mypy validate.py tools/capture.py scripts/roadmap_progress.py scripts/sync_readme.py`, `python3 scripts/roadmap_progress.py --check ROADMAP.md` and `python3 scripts/sync_readme.py --check` all pass. | 3.5 |
 | 2026-11-23 17:31 | Four validator suites and one rule (closing #79, #82, #83, #85): the nested-directory blind spot is pinned in both directions, duplicate `fixture.toml` keys are shown to arrive as `sidecar is not valid TOML` rather than a traceback, `check_captured` now refuses a sidecar ledger below the account's `last_modified_ledger` and the nine shipped fixtures still pass, and the CLI's stdout/stderr/exit split is driven as a subprocess over success, report, problem and unreadable-root corpora. | 2.31, 2.32, 2.33, 2.34 |
 | 2026-11-23 17:18 | Two suites pinned rather than described (pull request #146): `tests/test_validate_duplicate_json_keys.py` records that `json.loads` keeps the last of two duplicate `home_domain` keys in `account.json`, that shape derivation reads that surviving value, and that `validate.py` still hashes the original bytes, so the behaviour is pinned without claiming key uniqueness is enforced; `tests/test_validate_corpus_identity.py` audits all nine shipped captures, tying each `fixture.toml` id to its directory, its network to the root document for that network, and its `account_id` to the bytes beside it. No validator, tool or fixture changed and no task is ticked. | none ticked |
 | 2026-11-23 11:14 | Tasks 2.27 to 2.30 (closing #41, #42, #43, #44): add fixture by shape label matrix in corpus/shape-matrix.md (#41), compile consolidated provenance table in corpus/provenance.md (#42), document signer structures and master key presence in corpus/signers.md (#43), and create threshold combination matrix in corpus/thresholds.md (#44). Verified by new test suites with zero em dashes. | 2.27, 2.28, 2.29, 2.30 |
