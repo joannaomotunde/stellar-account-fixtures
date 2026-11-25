@@ -15,7 +15,7 @@
 
 Public Stellar account reads, captured from Horizon and kept honest by a validator.
 
-[Documentation site & Specimen Vault](https://posture-sec.github.io/stellar-account-fixtures/) · [Schema Specification](SCHEMA.md) · [The Nine Accounts](#the-nine-accounts) · [Shape Matrix](corpus/shape-matrix.md) · [Provenance](corpus/provenance.md) · [Signers](corpus/signers.md) · [Thresholds](corpus/thresholds.md) · [Data Entries](corpus/data-entries.md) · [Root Diff](corpus/root-diff.md) · [Network Conformance](corpus/network-conformance.md) · [Adding a Fixture](#adding-a-fixture) · [Contributing](CONTRIBUTING.md)
+[Documentation site & Specimen Vault](https://posture-sec.github.io/stellar-account-fixtures/) · [Schema Specification](SCHEMA.md) · [The Nine Accounts](#the-nine-accounts) · [Shape Matrix](corpus/shape-matrix.md) · [Home Domain Values](corpus/home-domains.md) · [Provenance](corpus/provenance.md) · [Signers](corpus/signers.md) · [Thresholds](corpus/thresholds.md) · [Data Entries](corpus/data-entries.md) · [Root Diff](corpus/root-diff.md) · [Adding a Fixture](#adding-a-fixture) · [Contributing](CONTRIBUTING.md)
 
 Gauge audits the configuration of a real Stellar account. Airlock scans Stellar
 repositories. Both need account-shaped JSON that is not invented: a rule written against
@@ -40,7 +40,7 @@ fixtures/
 corpus/
   capture-log.md
   data-entries.md
-  network-conformance.md
+  home-domains.md
   provenance.md
   root-diff.md
   root-public.json
@@ -77,10 +77,10 @@ This block illustrates baseline shapes across the nine baseline specimens. Run
 `python3 validate.py --report` for the current report.
 
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
-[Shape Label Matrix](corpus/shape-matrix.md). Consolidated account digests, ledger heights, and
-Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md), and capture timestamps
-and ledger order are listed in the [Chronological Capture Log](corpus/capture-log.md). Specific
-multi-signature threshold triples (low, medium, high) are detailed in
+[Shape Label Matrix](corpus/shape-matrix.md). The raw values and omitted-key case for
+`home_domain` are tabulated in [Home Domain Values](corpus/home-domains.md). Consolidated
+account digests, ledger heights, and Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md).
+Specific multi-signature threshold triples (low, medium, high) are detailed in
 [Threshold Combinations Matrix](corpus/thresholds.md).
 
 This corpus says nothing about whether an account is well configured. No expectations, no
