@@ -38,6 +38,7 @@ fixtures/
   testnet-sponsored/       account.json  fixture.toml
   whitespace-home-domain/  account.json  fixture.toml
 corpus/
+  capture-log.md
   data-entries.md
   network-conformance.md
   provenance.md
@@ -72,12 +73,15 @@ fixtures/whitespace-home-domain: blank_home_domain, has_inflation, master_is_sig
 validate: corpus agrees with itself
 ```
 
-That block is the output of the command above, run in this checkout on 2026-11-03. If a
-fixture changes, the block is stale and the command is not: regenerate rather than trust it.
+This block illustrates baseline shapes across the nine baseline specimens. Run
+`python3 validate.py --report` for the current report.
+
 A static cross-reference matrix across all nine fixtures and all 24 labels is documented in
 [Shape Label Matrix](corpus/shape-matrix.md). Consolidated account digests, ledger heights, and
-Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md). Specific multi-signature
-threshold triples (low, medium, high) are detailed in [Threshold Combinations Matrix](corpus/thresholds.md).
+Horizon versions are tabulated in [Corpus Provenance](corpus/provenance.md), and capture timestamps
+and ledger order are listed in the [Chronological Capture Log](corpus/capture-log.md). Specific
+multi-signature threshold triples (low, medium, high) are detailed in
+[Threshold Combinations Matrix](corpus/thresholds.md).
 
 This corpus says nothing about whether an account is well configured. No expectations, no
 severities, no rule ids: that is Gauge's job. Nothing here holds a secret key, and a
@@ -89,7 +93,7 @@ seed-shaped string (`S...`) is refused by both the capture tool and the validato
 | Indicator | Value | Source |
 |---|---|---|
 | Verified Captures | **12 accounts** (10 Mainnet, 2 Test) | `fixtures/` |
-| Test Suite | **280 passing** | `python -m unittest` |
+| Test Suite | **286 passing** | `python -m unittest` |
 | Integrity Assurance | **SHA-256 sidecars verified** | `validate.py` |
 | Safety Invariant | **Zero secret keys (`S...`)** | Validator enforced |
 <!-- METRICS:END -->
@@ -146,6 +150,7 @@ python3 tools/manifest.py
 
 `shape` in the sidecar is the label set to select by. The ids are part of the contract and
 do not get renamed; if a fixture has to be replaced, `SCHEMA.md` section 7 applies.
+For question-driven specimen selection, see [Choosing a Fixture](corpus/choosing-a-fixture.md).
 
 ## Adding a fixture
 
