@@ -80,7 +80,7 @@ fixture sidecars; do not edit the list by hand. Close a gap in this order:
 
    ```bash
    python3 tools/capture.py --network public --account G... \
-     --id my-new-shape --scenario "one sentence on why this shape is missing"
+     --id my-new-shape --scenario "one sentence on why this shape is missing" --root .
    python3 validate.py
    ```
 
@@ -90,9 +90,16 @@ fixture sidecars; do not edit the list by hand. Close a gap in this order:
 4. Run `python3 scripts/sync_readme.py` to regenerate the README, tick the roadmap task,
    and record the date and evidence in the changelog row.
 
-Use `--update` to replace a fixture you are intentionally re-capturing. It is the only way a
-captured fixture changes after it is on disk, and a re-capture at a later ledger is a new
-fact about the same account, so the changelog row has to say which ledger it replaced.
+`--root` selects the checkout to write into and defaults to the current directory. Use
+`--update` only when intentionally replacing an existing fixture. A re-capture at a later
+ledger is a new fact about the same account, so the changelog row has to say which ledger it
+replaced:
+
+```bash
+python3 tools/capture.py --network public --account G... \
+  --id existing-shape --scenario "why this account is being re-captured" \
+  --root /path/to/checkout --update
+```
 
 ## Issues
 
