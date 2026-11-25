@@ -38,6 +38,7 @@ fixtures/
   testnet-sponsored/       account.json  fixture.toml
   whitespace-home-domain/  account.json  fixture.toml
 corpus/
+  choosing-a-fixture.md
   data-entries.md
   network-conformance.md
   provenance.md
@@ -147,6 +148,7 @@ python3 tools/manifest.py
 
 `shape` in the sidecar is the label set to select by. The ids are part of the contract and
 do not get renamed; if a fixture has to be replaced, `SCHEMA.md` section 7 applies.
+For question-driven specimen selection, see [Choosing a Fixture](corpus/choosing-a-fixture.md).
 
 ## Adding a fixture
 
